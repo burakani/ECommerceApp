@@ -12,6 +12,7 @@ namespace ECommerceApp.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext(builder.Configuration);
             builder.Services.AddExternalClients(builder.Configuration);
             builder.Services.AddApplicationServices();
 

@@ -38,15 +38,16 @@
                 }
 
                 var content = await response.Content.ReadAsStringAsync();
-                var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<ProductDto>>>(content);
 
-                if (apiResponse?.Success == false || apiResponse?.Data == null)
+                var result = JsonSerializer.Deserialize<ApiResponse<List<ProductDto>>>(content);
+
+                if (result?.Success == false || result?.Data == null)
                 {
                     // Log the failure
                     return new List<ProductDto>();
                 }
 
-                return apiResponse?.Data!;
+                return result?.Data!;
             }
             catch (Exception ex)
             {
@@ -67,14 +68,26 @@
         /// </summary>
         public async Task<PreorderResponse> PreorderAsync(PreorderRequest request)
         {
-            var json = JsonSerializer.Serialize(request);
+            var json = JsonSerializer.Serialize(request, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("/preorder", content);
-            response.EnsureSuccessStatusCode();
+            var response = await _httpClient.PostAsync("/api/balance/preorder", content);
 
-            var result = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<PreorderResponse>(result)!;
+            var contentString = await response.Content.ReadAsStringAsync();
+
+            var result = JsonSerializer.Deserialize<ApiResponse<PreorderResponse>>(contentString);
+
+            if (result?.Success == false || result?.Data == null)
+            {
+                // Log the failure
+                return new PreorderResponse();
+            }
+
+            return result?.Data!;
         }
 
         /// <summary>
@@ -82,14 +95,26 @@
         /// </summary>
         public async Task<CompleteResponse> CompleteOrderAsync(CompleteRequest request)
         {
-            var json = JsonSerializer.Serialize(request);
+            var json = JsonSerializer.Serialize(request, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("/complete", content);
-            response.EnsureSuccessStatusCode();
+            var response = await _httpClient.PostAsync("/api/balance/complete", content);
 
-            var result = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<CompleteResponse>(result)!;
+            var contentString = await response.Content.ReadAsStringAsync();
+
+            var result = JsonSerializer.Deserialize<ApiResponse<CompleteResponse>>(contentString);
+
+            if (result?.Success == false || result?.Data == null)
+            {
+                // Log the failure
+                return new CompleteResponse();
+            }
+
+            return result?.Data!;
         }
     }
 }
