@@ -56,7 +56,8 @@
             {
                 OrderId = Guid.NewGuid().ToString(),
                 Amount = orderProduct.Price,
-                UserId = userId
+                UserId = userId,
+                CreatedAt = DateTime.UtcNow
             };
 
             try
@@ -178,6 +179,5 @@
 
             return true;
         }
-
     }
 }

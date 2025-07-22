@@ -79,15 +79,15 @@
 
             var contentString = await response.Content.ReadAsStringAsync();
 
-            var result = JsonSerializer.Deserialize<ApiResponse<PreorderResponse>>(contentString);
+            var result = JsonSerializer.Deserialize<PreorderResponse>(contentString);
 
-            if (result?.Success == false || result?.Data == null)
+            if (result?.Success == false || result == null)
             {
                 // Log the failure
                 return new PreorderResponse();
             }
 
-            return result?.Data!;
+            return result!;
         }
 
         /// <summary>
@@ -106,15 +106,15 @@
 
             var contentString = await response.Content.ReadAsStringAsync();
 
-            var result = JsonSerializer.Deserialize<ApiResponse<CompleteResponse>>(contentString);
+            var result = JsonSerializer.Deserialize<CompleteResponse>(contentString);
 
-            if (result?.Success == false || result?.Data == null)
+            if (result?.Success == false || result == null)
             {
                 // Log the failure
                 return new CompleteResponse();
             }
 
-            return result?.Data!;
+            return result!;
         }
     }
 }
