@@ -2,6 +2,7 @@
 {
     using ECommerceApp.Application.Interfaces;
     using ECommerceApp.Application.Services;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -22,6 +23,7 @@
         /// Create a new order
         /// </summary>
         [HttpPost]
+        [Authorize]
         [Route("create")]
         public async Task<IActionResult> Create(string userId)
         {
@@ -47,6 +49,7 @@
         /// Complete a new order
         /// </summary>
         [HttpPost]
+        [Authorize]
         [Route("{orderId}/complete")]
         public async Task<IActionResult> Complete(string orderId)
         {
@@ -67,6 +70,7 @@
         /// Cancel a new order
         /// </summary>
         [HttpPost]
+        [Authorize]
         [Route("{orderId}/cancel")]
         public async Task<IActionResult> Cancel(string orderId)
         {

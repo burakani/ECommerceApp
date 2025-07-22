@@ -1,10 +1,17 @@
 ﻿namespace ECommerceApp.Application.Interfaces
 {
+    using ECommerceApp.Domain.Entities;
+
     /// <summary>
     /// User Balance Service Interface
     /// </summary>
     public interface IUserBalanceRepository
     {
+        /// <summary>
+        /// Add user new balance
+        /// </summary>
+        Task Add(Balance balance);
+
         /// <summary>
         /// Get user available balance
         /// </summary>

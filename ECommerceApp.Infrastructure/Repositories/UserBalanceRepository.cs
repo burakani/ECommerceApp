@@ -1,6 +1,7 @@
 ﻿namespace ECommerceApp.Infrastructure.Repositories
 {
     using ECommerceApp.Application.Interfaces;
+    using ECommerceApp.Domain.Entities;
     using ECommerceApp.Infrastructure.Persistence;
     using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,14 @@
         public UserBalanceRepository(AppDbContext context)
         {
             _context = context;
+        }
+
+        /// <summary>
+        /// Add
+        /// </summary>
+        public async Task Add(Balance balance)
+        {
+            await _context.Balances.AddAsync(balance);
         }
 
         /// <summary>
