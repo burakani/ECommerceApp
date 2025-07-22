@@ -26,6 +26,9 @@
 
                 entity.HasKey(o => o.Id);
                 entity.Property(o => o.Id).HasColumnName("id");
+                entity.Property(o => o.Username).HasColumnName("username");
+                entity.Property(o => o.PasswordHash).HasColumnName("password_hash");
+                entity.Property(o => o.PasswordSalt).HasColumnName("password_salt");
                 entity.Property(o => o.CreatedAt).HasColumnName("created_at");
             });
             #endregion
