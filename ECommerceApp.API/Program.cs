@@ -11,34 +11,33 @@ namespace ECommerceApp.API
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(c =>
+            builder.Services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerceApp API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "ECommerce API", Version = "v1" });
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                // JWT authentication tanýmý
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header",
                     Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Description = "JWT Authorization header."
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
                         {
                             Reference = new OpenApiReference
                             {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
                         },
-                        new List<string>()
+                        Array.Empty<string>()
                     }
                 });
             });
