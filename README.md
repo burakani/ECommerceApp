@@ -4,6 +4,13 @@
 - [Health Check](https://ecommerceapp-76db.onrender.com/healthz)
 
 ## Auth
+**You can use this login request:**
+```json
+{
+  "username": "burakani2",
+  "password": "123321"
+}
+```
 
 ### POST /auth/register
 Register a new user
@@ -57,7 +64,8 @@ Returns product list
     {
       "id": "1",
       "name": "Product A",
-      "price": 100
+      "price": 100,
+      ..
     }
   ]
 }
@@ -67,31 +75,27 @@ Returns product list
 
 ## Orders
 
-### POST /orders/preorder  
+### POST api/orders/create  
 Initiates a preorder request  
 🛡 Requires JWT authentication
 
 **Request:**
 ```json
 {
-  "orderId": "b8a1b249-56d4-44ae-a837-b3176cbb9349",
-  "amount": 150
+  "userId": "ef95931b-6160-417f-9a5d-9a86be814ffc"
 }
 ```
 
 **Response:**
 ```json
 {
-  "success": true,
-  "data": {
-    "isAvailable": true
-  }
+  "orderId"
 }
 ```
 
 ---
 
-### POST /orders/complete  
+### POST api/orders/{orderId}/complete  
 Completes the order  
 🛡 Requires JWT authentication
 
@@ -105,10 +109,7 @@ Completes the order
 **Response:**
 ```json
 {
-  "success": true,
-  "data": {
-    "message": "Order completed successfully"
-  }
+  OK
 }
 ```
 
