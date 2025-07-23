@@ -1,4 +1,7 @@
-# API Endpoints
+# E-CommerceAPI
+## Links
+- [Swagger](https://ecommerceapp-76db.onrender.com/swagger)
+- [Health Check](https://ecommerceapp-76db.onrender.com/healthz)
 
 ## Auth
 
